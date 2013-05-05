@@ -21,13 +21,12 @@
     function monthTable(firstWeekDay,previousMonthLastDay,lastDay,today,month,year)
     {
         var startDay = previousMonthLastDay - (firstWeekDay-2);
-        console.log(startDay);
         var counter = 1;
 
         var month_names = new Array("January","February","March","April","May","June","July","August","September","October","November","December");
         var currentMonth = month_names[month];
 
-        var output ='<table class="table-condensed table-bordered table-striped">\n\t<thead>\n\t\t<tr>\n\t\t\t<th colspan="7">\n\t\t\t\t<span class="btn-group">\n\t\t\t\t\t<a class="btn"><i class="icon-chevron-left"></i></a>\n\t\t\t\t\t<a class="btn active">';
+        var output ='<table class="table-condensed table-bordered table-striped">\n\t<thead>\n\t\t<tr>\n\t\t\t<th colspan="7">\n\t\t\t\t<span class="btn-group">\n\t\t\t\t\t<a id="left" class="btn"><i class="icon-chevron-left"></i></a>\n\t\t\t\t\t<a id="rigth" class="btn active">';
         output += currentMonth + " "+year+'</a>\n\t\t\t\t\t<a class="btn"><i class="icon-chevron-right"></i></a>\n\t\t\t\t</span>\n\t\t\t</th>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<th>Su</th>\n\t\t\t<th>Mo</th>\n\t\t\t<th>Tu</th>\n\t\t\t<th>We</th>\n\t\t\t<th>Th</th>\n\t\t\t<th>Fr</th>\n\t\t\t<th>Sa</th>\n\t\t</tr>\n\t</thead>\n\t<tbody>\n';
         var monthNumbers = startDay;
         output += '\t\t<tr>\n';
@@ -93,13 +92,34 @@
         
         var currentMonth = month_names[m];
         
-        var content = monthTable(firstWeekDay,previousMonthLastDay,lastDay, today,m,y);
+        var methods = {
+            init : function( ) {
+                var content = monthTable(firstWeekDay,previousMonthLastDay,lastDay, today,m,y);
+                var $this = $(this);
+                $this.html(content);
+            },
+            next : function( ) {
+                var content = monthTable(firstWeekDay,previousMonthLastDay,lastDay, today,m+1,y);
+                var $this = $(this);
+                $this.html(content);
+            },
+            prev : function( ) { 
+                var content = monthTable(firstWeekDay,previousMonthLastDay,lastDay, today,m-1,y);
+                var $this = $(this);
+                $this.html(content);
+            }
+        };
+        
         
 
-        return this.each(function() {
-
-            var $this = $(this);
-            $this.html(content);
+        return this.each(function( method ) {
+            if ( methods[method] ) {
+              return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+            } else if ( typeof method === 'object' || ! method ) {
+              return methods.init.apply( this, arguments );
+            } else {
+              $.error( 'Method ' +  method + ' does not exist on jQuery.tooltip' );
+            }
 
         });
 
