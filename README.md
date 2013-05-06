@@ -1,106 +1,44 @@
-## 2.0 BOOTSTRAP JS PHILOSOPHY
-These are the high-level design rules which guide the development of Bootstrap's plugin apis.
+## Monthly Calendar for Twitter Bootstrap
+Monthly calendar By Midori Kocak mtkocak@gmail.com. Inspired by http://bootsnipp.com/snipps/better-one-month-calendar
+
+This calendar creates a calendar on a selected div. Twitter Bootstrap library is required.
 
 ---
 
-### DATA-ATTRIBUTE API
+### Usage
 
-We believe you should be able to use all plugins provided by Bootstrap purely through the markup API without writing a single line of javascript.
+Copy jquery.bootcalendar.js file to you js folder. And then add the script to your page after bootstrap script is initialized.
 
-We acknowledge that this isn't always the most performant and sometimes it may be desirable to turn this functionality off altogether. Therefore, as of 2.0 we provide the ability to disable the data attribute API by unbinding all events on the body namespaced with `'data-api'`. This looks like this:
+        <script src="js/jquery.bootcalendar.js"></script>
+        
+To run the calendar, you can start by adding .calendar() to your selected div tag.
 
-    $('body').off('.data-api')
+    <script>
+    $('#calendar').calendar();
+    </script>
 
-To target a specific plugin, just include the plugins name as a namespace along with the data-api namespace like this:
+There is two methods for change months. You can increase month by calling:
 
-    $('body').off('.alert.data-api')
+    $('#calendar').calendar('next');
+    
+And you can decrease month by calling:
 
----
-
-### PROGRAMMATIC API
-
-We also believe you should be able to use all plugins provided by Bootstrap purely through the JS API.
-
-All public APIs should be single, chainable methods, and return the collection acted upon.
-
-    $(".btn.danger").button("toggle").addClass("fat")
-
-All methods should accept an optional options object, a string which targets a particular method, or null which initiates the default behavior:
-
-    $("#myModal").modal() // initialized with defaults
-    $("#myModal").modal({ keyboard: false }) // initialized with now keyboard
-    $("#myModal").modal('show') // initializes and invokes show immediately afterqwe2
+    $('#calendar').calendar('prev');
+    
+However this feature is not tested yet.
 
 ---
 
-### OPTIONS
+### License
 
-Options should be sparse and add universal value. We should pick the right defaults.
+GNU GENERAL PUBLIC LICENSE
 
-All plugins should have a default object which can be modified to effect all instance's default options. The defaults object should be available via `$.fn.plugin.defaults`.
-
-    $.fn.modal.defaults = { … }
-
-An options definition should take the following form:
-
-    *noun*: *adjective* - describes or modifies a quality of an instance
-
-examples:
-
-    backdrop: true
-    keyboard: false
-    placement: 'top'
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF THIRD PARTY RIGHTS. IN
+NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
-
-### EVENTS
-
-All events should have an infinitive and past participle form. The infinitive is fired just before an action takes place, the past participle on completion of the action.
-
-    show | shown
-    hide | hidden
-
----
-
-### CONSTRUCTORS
-
-Each plugin should expose it's raw constructor on a `Constructor` property -- accessed in the following way:
-
-
-    $.fn.popover.Constructor
-
----
-
-### DATA ACCESSOR
-
-Each plugin stores a copy of the invoked class on an object. This class instance can be accessed directly through jQuery's data API like this:
-
-    $('[rel=popover]').data('popover') instanceof $.fn.popover.Constructor
-
----
-
-### DATA ATTRIBUTES
-
-Data attributes should take the following form:
-
-- data-{{verb}}={{plugin}} - defines main interaction
-- data-target || href^=# - defined on "control" element (if element controls an element other than self)
-- data-{{noun}} - defines class instance options
-
-examples:
-
-    // control other targets
-    data-toggle="modal" data-target="#foo"
-    data-toggle="collapse" data-target="#foo" data-parent="#bar"
-
-    // defined on element they control
-    data-spy="scroll"
-
-    data-dismiss="modal"
-    data-dismiss="alert"
-
-    data-toggle="dropdown"
-
-    data-toggle="button"
-    data-toggle="buttons-checkbox"
-    data-toggle="buttons-radio"
