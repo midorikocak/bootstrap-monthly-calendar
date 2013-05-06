@@ -12,7 +12,7 @@
         {
             var today = 0;
         }
-        else
+        else if (year==new Date().getFullYear())
         {
             var today = day;
         }
