@@ -26,7 +26,7 @@
         var currentMonth = month_names[month];
 
         var output ='<table class="table-condensed table-bordered table-striped">\n\t<thead>\n\t\t<tr>\n\t\t\t<th colspan="7">\n\t\t\t\t<span class="btn-group">\n\t\t\t\t\t<a id="left" class="btn"><i class="icon-chevron-left"></i></a>\n\t\t\t\t\t<a class="btn active">';
-        output += currentMonth + " "+year+'</a>\n\t\t\t\t\t<a id="right"  class="btn"><i class="icon-chevron-right"></i></a>\n\t\t\t\t</span>\n\t\t\t</th>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<th>Mo</th>\n\t\t\t<th>Tu</th>\n\t\t\t<th>We</th>\n\t\t\t<th>Th</th>\n\t\t\t<th>Fr</th>\n\t\t\t<th>Sa</th>\n\t\t\t<th>Su</th>\n\t\t</tr>\n\t</thead>\n\t<tbody data-month="'+currentMonth+'" data-year="'+year+'">\n';
+        output += currentMonth + " "+year+'</a>\n\t\t\t\t\t<a id="right"  class="btn"><i class="icon-chevron-right"></i></a>\n\t\t\t\t</span>\n\t\t\t</th>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<th>Mo</th>\n\t\t\t<th>Tu</th>\n\t\t\t<th>We</th>\n\t\t\t<th>Th</th>\n\t\t\t<th>Fr</th>\n\t\t\t<th>Sa</th>\n\t\t\t<th>Su</th>\n\t\t</tr>\n\t</thead>\n\t<tbody data-month="'+month+'" data-year="'+year+'">\n';
         
         var monthNumbers = startDay;
         
@@ -149,6 +149,9 @@
                 $('#left').click(function(e) {
                     methods.prevMonth.call($this);
                 });
+                if (typeof callback == 'function') { // make sure the callback is a function
+                    callback.call($this); // brings the scope to the callback
+                }
             },
             prevMonth : function( ) {
                 --month;
@@ -163,6 +166,9 @@
                 $('#left').click(function(e) {
                     methods.prevMonth.call($this);
                 });
+                if (typeof callback == 'function') { // make sure the callback is a function
+                    callback.call($this); // brings the scope to the callback
+                }
                 if((month)%12==0)
                 {
                     month=12;
