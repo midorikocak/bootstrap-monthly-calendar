@@ -32,7 +32,7 @@
         
         output += '\t\t<tr>\n';
         
-        var tdOpener = "<td>"
+        var tdOpener = '<td id="'+monthNumbers+'-'+(month+1)+'-'+year+'">';
         
         var resetCounter = 0;
         
@@ -85,19 +85,19 @@
             // td openers
             if(monthNumbers==today)
             {
-                tdOpener = '\t<td class="btn-primary">';
+                tdOpener = '\t<td class="btn-primary" id="'+monthNumbers+'-'+(month+1)+'-'+year+'">';
             }
             else if(counter<firstWeekDay+1)
             {
-                tdOpener = '\t<td class="muted">';
+                tdOpener = '\t<td class="muted" id="'+monthNumbers+'-'+(month+1)+'-'+year+'">';
             }
             else if(resetCounter!=0)
             {
-                tdOpener = '\t<td class="muted">';
+                tdOpener = '\t<td class="muted" id="'+monthNumbers+'-'+(month+1)+'-'+year+'">';
             }
             else
             {
-                tdOpener = '\t<td>';
+                tdOpener = "\t<td id='"+monthNumbers+"-"+(month+1)+"-"+year+"'>";
             }
             
             if (counter==limit)

@@ -64,7 +64,23 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.bootcalendar.js"></script>
     <script>
-    $('#calendar').calendar();
+    var reminder = {
+        "month":4,
+        "day":11,
+        "year":2013
+    };
+    
+    // Standard usage:
+    // $('#calendar').calendar();
+    
+    // Advanced usage:
+    $('#calendar').calendar(function(){
+        if($('tbody').data('month')==reminder.month && $('tbody').data('year')==reminder.year)
+        {
+            var dayId = '#'+reminder.day+'-'+(reminder.month+1)+'-'+reminder.year;
+            $(dayId).removeClass().addClass('btn-danger');
+        }
+    });
     </script>
 
   </body>
