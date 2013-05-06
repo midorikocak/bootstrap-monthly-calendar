@@ -130,6 +130,14 @@
                 if (typeof callback == 'function') { // make sure the callback is a function
                     callback.call($this); // brings the scope to the callback
                 }
+                else if(callback=='next')
+                {
+                    methods.nextMonth.call($this);
+                }
+                else if(callback=='prev')
+                {
+                    methods.prevMonth.call($this);
+                }
             },
             nextMonth : function( ) {
                 month++;
