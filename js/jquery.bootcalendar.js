@@ -32,7 +32,6 @@
 
         output += '\t\t<tr>\n';
 
-        var tdOpener = '<td id="'+monthNumbers+'-'+(month+1)+'-'+year+'">';
 
         var resetCounter = 0;
 
@@ -46,17 +45,26 @@
         {
             var limit = 35;
         }
-
+        var reset = 0;
         while(counter<limit)
         {
+            
             if(counter==firstWeekDay+1)
             {
                 monthNumbers = 1;
+                reset = 1;
+            }
+            if(reset==0)
+            {
+                var tdOpener = '<td id="'+monthNumbers+'-'+(month)+'-'+year+'">';
+            }
+            else
+            {
+                var tdOpener = '<td id="'+monthNumbers+'-'+(month+1)+'-'+year+'">';
             }
 
             //console.debug(monthNumbers,lastDay+1);
-
-        var tdOpener = '<td id="'+monthNumbers+'-'+(month+1)+'-'+year+'">';
+            
 
             // Week Lines
             if(counter%7!=0)
